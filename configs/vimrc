@@ -1,0 +1,41 @@
+syntax enable
+
+set ts=4
+set expandtab
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+set ruler
+set nu
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" maps backspace to clear last search highlighting
+" turned off by default incase you like backspace, just replace <BS> with
+" whatever you want
+nmap <silent> <BS> :nohlsearch<CR>
+
+" solarized colors
+if has('gui_running')
+    set background=light
+	colorscheme solarized
+else
+    "set background=dark
+endif
+colorscheme solarized
+
+augroup perl
+    " autoindent
+    "autocmd FileType perl set autoindent
+    "autocmd FileType perl set smartindent
+
+    " make lines longer than 120 characters errors (including newline)
+    "autocmd FileType perl match ErrorMsg /\%>119v.\+/
+
+    " make tabs and trailing spaces errors
+    autocmd FileType perl 2match ErrorMsg /[\t]\|\s\+\%#\@<!$/
+
+augroup END
