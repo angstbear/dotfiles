@@ -37,6 +37,10 @@
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
+;; Require newline at EOF
+;; https://robots.thoughtbot.com/no-newline-at-end-of-file
+(setq require-final-newline t)
+
 ;; Indent with RET instead of requiring TAB on newline
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
