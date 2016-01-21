@@ -14,7 +14,6 @@
 (setq-default icon-title-format "Emacs - %b")
 
 ;; Cut / Copy / Paste
-;; see http://www.emacswiki.org/emacs/CopyAndPaste#toc6
 (global-set-key "\C-w" 'clipboard-kill-region)
 (global-set-key "\M-w" 'clipboard-kill-ring-save)
 (global-set-key "\C-y" 'clipboard-yank)
@@ -41,10 +40,6 @@
   (setq powerline-height 20)
   (setq powerline-default-separator 'arrow)
 
-  ;;(require 'color-theme)
-  ;;(color-theme-initialize)
-  ;;(color-theme-robin-hood)
-    
   (require 'airline-themes)
   (when (display-graphic-p)
     (load-theme 'solarized-dark t)
@@ -87,6 +82,8 @@
     (paredit-mode . " Φ")
     (eldoc-mode . "")
     (abbrev-mode . "")
+    (emoji-mode . "ξm")
+    (emojify-mode . "ξm")
     (undo-tree-mode . " u")
     (helm-mode . " θ")
     (guide-key-mode . " κ")
