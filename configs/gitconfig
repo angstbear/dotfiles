@@ -1,5 +1,5 @@
 [user]
-    username = angstbear
+    name = angstbear
     email = subfusca@gmail.com
 [format]
     pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
@@ -14,5 +14,5 @@
 [fetch]
     prune = true
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
 
