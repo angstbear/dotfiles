@@ -1,60 +1,45 @@
-
 " Vim power
 set nocompatible
-" Enable syntax colors
+
+" Colors
 syntax enable
-" Tab spacing
-set tabstop=4
-" Line numbers
-set number
-" Highlight current line
-set cursorline
-" Show cursor position
-set ruler
-" Allow cursor keys in insert mode
-set esckeys
-" Allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-" Always show status line
-set laststatus=2
-" Enable mouse in all modes
-set mouse=a
-" Disable error bells
+colorscheme solarized
+set background=dark
+
+" General settings
+filetype on
 set noerrorbells
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
-" Show current mode
-set showmode
-" Show the filename in the window titlebar
-set title
-" Show the (partial) command as it’s being typed
-set showcmd
-" Command-line completion
-set wildmenu
-
-
-" Highlight searches
+set visualbell
+set number
+set cursorline
+set ruler
 set hlsearch
-" Highlight and search while typing
 set incsearch
-" Ingore case, unless I use it
 set ignorecase
 set smartcase
+set esckeys                    " Allow cursor keys in insert mode
+set backspace=indent,eol,start " Allow backspacing over everything in insert mode
+set laststatus=2               " Always show status line
+set mouse=a                    " Enable mouse in all modes
+set nostartofline              " Don’t reset cursor to start of line when moving around.
+set scrolloff=3                " Start scrolling three lines before the horizontal window border
+set showmode                   " Show current mode
+set showmatch                  " Show matching brackets
+set title                      " Show the filename in the window titlebar
+set showcmd                    " Show the (partial) command as it’s being typed
+set wildmenu                   " Command-line completion
+
+" Tab spacing
+set tabstop=4
+
+" Tabs
+set expandtab
+
+
 " Maps backspace to clear last search highlighting
 " turned off by default incase you like backspace, <BS>
 nmap <silent> <BS> :nohlsearch<CR>
 
-" Solarized theme colors
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
-colorscheme solarized
-
-" Change mapleader
 let mapleader=","
 
 " Toggle line numbers
@@ -62,7 +47,7 @@ nnoremap <leader>l :set invnumber<CR>
 " Save a file as root (,W)
 nnoremap <leader>W :w !sudo tee % > /dev/null<CR>
 
-" Strip trailing whitespace (,ss)
+" Strip trailing whitespace (,ws)
 function! StripWhitespace()
     let save_cursor = getpos(".")
     let old_query = getreg('/')
@@ -70,7 +55,12 @@ function! StripWhitespace()
     call setpos('.', save_cursor)
     call setreg('/', old_query)
 endfunction
-nnoremap <leader>ss :call StripWhitespace()<CR>
+nnoremap <leader>ws :call StripWhitespace()<CR>
+
+" Treat .json files as .js
+autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+" Treat .md files as Markdown
+autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 
 augroup perl
     " autoindent
@@ -85,12 +75,7 @@ augroup perl
 
 augroup END
 
-" Automatic commands
-if has("autocmd")
-    " Enable file type detection
-    filetype on
-    " Treat .json files as .js
-    autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-    " Treat .md files as Markdown
-    autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-endif
+" Status line (slightly more informative than default)
+set statusline=%f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r\ %y%=%c,%l/%L\ %P
+
+
