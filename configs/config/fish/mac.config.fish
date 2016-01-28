@@ -14,11 +14,11 @@ function macupg
     sudo softwareupdate -i -a $argv
 end
 function brewupg
-    # Homebrew permission denied on upgrades, getting old
-    sudo chown -R $USER /usr/local/bin
-    sudo chown -R $USER /usr/local/share
-    sudo chown -R $USER /usr/local/Library
-    sudo chown -R $USER /usr/local/Cellar
+    set -l owner (ls -ld /usr/local | awk '{print $3, $4 }')
+    if test $owner -ne "$USER admin"
+        sudo chown -R $USER:admin /usr/local
+        echo Changing permissions of /usr/local to $USER:admin
+    end
 
         brew update
     and brew upgrade $argv
