@@ -78,6 +78,7 @@
   ;; Web Mode customizations
   (defun my-web-mode-hook ()
     "Hooks for Web mode."
+    (linum-mode 1)
     (setq web-mode-markup-indent-offset 4)
     (setq web-mode-css-indent-offset 4)
     (setq web-mode-code-indent-offset 4))
@@ -120,12 +121,12 @@
   :config
   (smooth-scroll-mode t))
 
-(use-package achievements
-  :diminish "Achv")
-(use-package fish-mode)
 (use-package helm-projectile)
+(use-package fish-mode)
 (use-package gist)
 
+(use-package achievements
+  :diminish "Achv")
 (use-package twittering-mode
   :load-path "~/.emacs.d/twittering-mode-3.0.0"
   :config
@@ -133,10 +134,12 @@
   (setq twittering-cert-file "/usr/local/etc/openssl/cert.pem"))
 (use-package emojify
   :config
-  (add-hook 'after-init-hook #'global-emojify-mode))
+  (add-hook 'org-mode-hook      'emojify-mode)
+  (add-hook 'markdown-mode-hook 'emojify-mode))
 (use-package emoji-cheat-sheet-plus
   :config
-  (add-hook 'org-mode-hook 'emoji-cheat-sheet-plus-display-mode))
+  (add-hook 'org-mode-hook      'emoji-cheat-sheet-plus-display-mode)
+  (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 (use-package jabber
   :config
   (load-file "~/.emacs.d/jconf/account-list.el") ; Accounts
@@ -163,6 +166,12 @@
   (add-hook 'jabber-chat-mode-hook
             (lambda ()
               (define-key jabber-chat-mode-map [(shift return)] 'newline))))
+
+(use-package circe ; irc server and channel config in jconf/account-list.el
+  :config
+  (setq circe-default-quit-message "quit: Leaving")
+  (setq circe-default-part-message "quit: Leaving"))
+
 
 ;;; COLOR THEMES
 
@@ -210,7 +219,7 @@
                         (setq found t)
                         (redraw-display)))))))
   ;; clean-mode-line
-  ;; (from: jr0cket.co.uk)
+  ;; from: http://jr0cket.co.uk/2013/01/tweeking-emacs-modeline-for-clojure.html.html
   (defvar mode-line-cleaner-alist
     `((auto-complete-mode . " α")
       (yas-minor-mode . " γ")
