@@ -20,7 +20,6 @@ set smartcase
 set esckeys                    " Allow cursor keys in insert mode
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode
 set laststatus=2               " Always show status line
-set mouse=a                    " Enable mouse in all modes
 set nostartofline              " Don’t reset cursor to start of line when moving around.
 set scrolloff=3                " Start scrolling three lines before the horizontal window border
 set showmode                   " Show current mode
@@ -56,6 +55,16 @@ function! StripWhitespace()
     call setreg('/', old_query)
 endfunction
 nnoremap <leader>ws :call StripWhitespace()<CR>
+
+" Toggle Mouse support
+function! ToggleMouse()
+    if &mouse == 'a'
+        set mouse=  " disable
+    else
+        set mouse=a " enable (all)
+    endif
+endfunction
+nnoremap <leader>m :call ToggleMouse()<CR>
 
 " Treat .json files as .js
 autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
