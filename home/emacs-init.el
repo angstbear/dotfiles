@@ -1,4 +1,4 @@
-;;; .emacs configuration
+;;; emacs init configuration
 
 ;; Package repositories (require 'package)
 (setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
