@@ -126,7 +126,17 @@
 (use-package gist)
 
 (use-package achievements
-  :diminish "Achv")
+  :diminish "Achv"
+  :config
+  (defun achievements-progress ()
+    "Show our current achievements progress."
+    (interactive)
+    (achievements-list-achievements)
+    (message (concat
+              "Your current achievments score: "
+              (int-to-string (round achievements-score)))))
+  (global-set-key (kbd "C-c a") 'achievements-progress))
+
 (use-package twittering-mode
   :load-path "~/.emacs.d/twittering-mode-3.0.0"
   :config
@@ -143,6 +153,11 @@
 (use-package jabber
   :config
   (load-file "~/.emacs.d/jconf/account-list.el") ; Accounts
+  ;; Define location of gnutls-cli on OS X, installed via brew
+  (when (string-equal system-type "darwin")
+    (setq starttls-use-gnutls t
+          starttls-gnutls-program "/usr/local/bin/gnutls-cli"
+          starttls-extra-arguments nil))
   (defvar jabber-alert-message-hooks '(jabber-message-echo jabber-message-scroll jabber-message_beep))
   (setq jabber-alert-presence-hooks nil
         jabber-autoaway-timeout 5
@@ -226,6 +241,7 @@
       (paredit-mode . " Φ")
       (eldoc-mode . "")
       (abbrev-mode . "")
+      (auto-revert-mode . "")
       (undo-tree-mode . " u")
       (helm-mode . " θ")
       (guide-key-mode . " κ")
@@ -289,3 +305,4 @@ want to use in the modeline *in lieu of* the original.")
 (global-set-key [f8] 'delete-trailing-whitespace)
 (global-set-key [f9] 'filesets-open)
 (global-set-key [mouse-3] 'imenu)
+
