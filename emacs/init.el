@@ -1,4 +1,8 @@
-;;; emacs init configuration
+;;; init.el --- emacs configuration
+;;;
+;;; Commentary:
+;;;
+;;; Code:
 
 ;; Package repositories (require 'package)
 (setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
@@ -8,7 +12,6 @@
 (require 'use-package)
 (require 'diminish)
 (require 'bind-key)
-(require 'epa-file)
 
 
 ;;; GENERAL SETTINGS
@@ -54,6 +57,10 @@
 (when (display-graphic-p)
   (desktop-save-mode 1))
 
+;; Add homebrew bin directory to exec-path on Mac
+(when (string-equal system-type "darwin")
+  (add-to-list 'exec-path "/usr/local/bin"))
+
 
 ;;; MODES & EXTRA PACKAGES
 
@@ -70,6 +77,7 @@
 
 ;; Lazy load our goodies and extras
 (use-package linum)
+(use-package epa-file)
 (use-package web-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -125,6 +133,11 @@
 (use-package fish-mode)
 (use-package gist)
 
+(use-package markdown-mode
+  :config
+  (setq markdown-command "/usr/local/bin/markdown")
+  (define-key markdown-mode-map     (kbd "TAB") 'markdown-cycle)
+  (define-key evil-normal-state-map (kbd "TAB") 'markdown-cycle))
 (use-package achievements
   :diminish "Achv"
   :config
@@ -136,17 +149,19 @@
               "Your current achievments score: "
               (int-to-string (round achievements-score)))))
   (global-set-key (kbd "C-c a") 'achievements-progress))
-
 (use-package twittering-mode
   :load-path "~/.emacs.d/twittering-mode-3.0.0"
   :config
   (setq twittering-use-master-password t)
   (setq twittering-cert-file "/usr/local/etc/openssl/cert.pem"))
 (use-package emojify
+  :diminish "e"
   :config
   (add-hook 'org-mode-hook      'emojify-mode)
-  (add-hook 'markdown-mode-hook 'emojify-mode))
+  (add-hook 'markdown-mode-hook 'emojify-mode)
+  (add-hook 'eww-mode-hook      'emojify-mode))
 (use-package emoji-cheat-sheet-plus
+  :diminish "ecsp"
   :config
   (add-hook 'org-mode-hook      'emoji-cheat-sheet-plus-display-mode)
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
@@ -171,6 +186,9 @@
         jabber-roster-line-format " %-50n %u %-8s  %S" ; Roster contact format
         jabber-show-offline-contacts nil     ; Don't show offline contacts by default
         jabber-show-resources nil            ; Don't show resources
+        jabber-history-enabled t             ; Keep history
+        ;;jabber-use-global-history nil        ; Store chat history in per-contact files
+        ;;jabber-history-dir "~/.emacs.d/jabber-history"  ; Set history directory
         fsm-debug nil                        ; No debug messages
         undo-outer-limit 75000000)           ; bh jabber tends bombard undo capacity in the roster buffer
   ;; Don't allow anonymous authentication
@@ -204,17 +222,18 @@
 
 (when (display-graphic-p) ; GUI
   (use-package powerline
+    :init
+    (when (string-equal system-type "darwin") ; Mac OS X
+      ;; sRGB doesn't blend with Powerline's pixmap colors, but is only
+      ;; used in OS X. Disable sRGB before setting up Powerline.
+      (setq ns-use-srgb-colorspace nil))
     :config
     (setq powerline-height 20)
     (setq powerline-default-separator 'arrow)
     (use-package airline-themes
       :config
       (load-theme 'solarized-dark t)
-      (load-theme 'airline-solarized-alternate-gui t)
-      (when (string-equal system-type "darwin") ; Mac OS X
-        ;; sRGB doesn't blend with Powerline's pixmap colors, but is only
-        ;; used in OS X. Disable sRGB before setting up Powerline.
-        (setq ns-use-srgb-colorspace nil))))
+      (load-theme 'airline-solarized-alternate-gui t)))
 
   ;; cycle-powerline-separators
   ;; (from: https://github.com/aaronbieber/)
@@ -279,7 +298,7 @@ want to use in the modeline *in lieu of* the original.")
   (add-hook 'after-change-major-mode-hook 'clean-mode-line))
 
 
-;;; KEY BINDINGS
+;;; GLOBAL KEY BINDINGS
 
 ;; C-c [a-zA-Z] Bingings
 (global-set-key (kbd "C-c c") 'calendar)
@@ -291,8 +310,9 @@ want to use in the modeline *in lieu of* the original.")
 (global-set-key (kbd "C-c l") 'linum-mode)
 
 ;; C-c C-[a-zA-Z] Bingings
-(global-set-key (kbd "C-c C-e") 'emoji-cheat-sheet-plus-insert)
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
+(global-set-key (kbd "C-c C-e") 'emoji-cheat-sheet-plus-insert)
+(global-set-key (kbd "C-c C-j") 'jabber-connect)
 
 ;; Function Key Bindings
 (global-set-key [f1] 'goto-line)
@@ -306,3 +326,5 @@ want to use in the modeline *in lieu of* the original.")
 (global-set-key [f9] 'filesets-open)
 (global-set-key [mouse-3] 'imenu)
 
+(provide 'init)
+;;; init.el ends here
