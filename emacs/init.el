@@ -110,12 +110,11 @@
   (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt)
   (define-key evil-visual-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt))
 (use-package helm-config
-  :config
-  (setq helm-buffers-fuzzy-matching t)
-  (helm-mode 1)
   :bind (("M-x"     . helm-M-x)
-         ("C-x b"   . helm-buffers-list)
-         ("C-x C-f" . helm-find-files)))
+         ("C-x C-f" . helm-find-files))
+  :config
+  (helm-mode 1)
+  (setq helm-buffers-fuzzy-matching t))
 (use-package guide-key
   :config
   (guide-key-mode 1)
@@ -161,25 +160,29 @@
   (add-hook 'markdown-mode-hook 'emojify-mode)
   (add-hook 'eww-mode-hook      'emojify-mode))
 (use-package emoji-cheat-sheet-plus
-  :diminish "ecsp"
+  :diminish "ecs"
   :config
   (add-hook 'org-mode-hook      'emoji-cheat-sheet-plus-display-mode)
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 (use-package jabber
-  :config
-  (load-file "~/.emacs.d/jconf/account-list.el") ; Accounts
+  :init
   ;; Define location of gnutls-cli on OS X, installed via brew
   (when (string-equal system-type "darwin")
     (setq starttls-use-gnutls t
           starttls-gnutls-program "/usr/local/bin/gnutls-cli"
           starttls-extra-arguments nil))
+  :config
+  (let ((emacs-jabber-dir "~/.emacs.d/jconf/"))
+    (when (file-exists-p emacs-jabber-dir)
+      (add-to-list 'load-path emacs-jabber-dir)
+      (require 'account-list)))
   (defvar jabber-alert-message-hooks '(jabber-message-echo jabber-message-scroll jabber-message_beep))
   (setq jabber-alert-presence-hooks nil
         jabber-autoaway-timeout 5
         jabber-autoaway-xa-timeout 0
         jabber-chat-buffer-show-avatar nil
         jabber-keepalive-interval 120
-        jabber-message-alert-same-buffer nil 
+        jabber-message-alert-same-buffer nil
         ;;jabber-chatstates-confirm nil        ; Don't send typing events
         ;;jabber-roster-show-bindings nil      ; Don't show the help text at the top by default
         jabber-auto-reconnect t              ; Automatically try to reconnect when disconnect detected
@@ -189,8 +192,9 @@
         jabber-history-enabled t             ; Keep history
         ;;jabber-use-global-history nil        ; Store chat history in per-contact files
         ;;jabber-history-dir "~/.emacs.d/jabber-history"  ; Set history directory
+        jabber-activity-count-in-title t
         fsm-debug nil                        ; No debug messages
-        undo-outer-limit 75000000)           ; bh jabber tends bombard undo capacity in the roster buffer
+        undo-outer-limit 99900000)           ; bh jabber tends bombard undo capacity in the roster buffer
   ;; Don't allow anonymous authentication
   (defadvice jabber-xml-get-children (after eaw-remove-anonymous)
     (setq ad-return-value (remove '(mechanism nil "ANONYMOUS") ad-return-value)))
@@ -229,7 +233,7 @@
       (setq ns-use-srgb-colorspace nil))
     :config
     (setq powerline-height 20)
-    (setq powerline-default-separator 'arrow)
+    (setq powerline-default-separator 'zigzag)
     (use-package airline-themes
       :config
       (load-theme 'solarized-dark t)
