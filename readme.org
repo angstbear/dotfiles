@@ -23,5 +23,5 @@
     Symlink all ([[http://fishshell.com][Fish Shell]])
 
     #+BEGIN_SRC fish
-    $ for d in (ls ~/dotfiles-bh-mac | grep -v '\.'); stow $d; end
+    $ for d in (ls ~/dotfiles | grep -v '\.'); stow $d; end
     #+END_SRC
