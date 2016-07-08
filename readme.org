@@ -1,3 +1,27 @@
-
 * dotfiles
 
+** Setup
+    The simplest method I've found to install / symlink dotfiles is using [[https://www.gnu.org/software/stow/][GNU Stow]].
+
+    #+BEGIN_SRC bash
+    $ git clone https://github.com/angstbear/dotfiles.git ~/
+    $ cd ~/dotfiles
+    #+END_SRC
+
+    Symlink one-by-one
+
+    #+BEGIN_SRC bash
+    $ stow bash
+    #+END_SRC
+    
+    Symlink all
+
+    #+BEGIN_SRC bash
+    $ for d in `ls ~/dotfiles | grep -v '\.'`; do stow $d; done
+    #+END_SRC
+    
+    Symlink all ([[http://fishshell.com][Fish Shell]])
+
+    #+BEGIN_SRC fish
+    $ for d in (ls ~/dotfiles-bh-mac | grep -v '\.'); stow $d; end
+    #+END_SRC
