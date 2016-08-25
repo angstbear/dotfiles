@@ -1,0 +1,9 @@
+---
+create:
+  links:
+    - mise/.mise: ~/.mise
+    - vim/.vimrc: ~/.vimrc
+    - vim/.vim: ~/.vim
+    - git/.gitconfig: ~/.gitconfig
+    - bash/.bashrc: ~/.bashrc
+

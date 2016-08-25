@@ -14,9 +14,3 @@ create:
     - .vim/colors
   links:
     - var/tmp: tmp
-    - etc/mise/.mise: ~/.mise
-    - etc/vim/.vimrc: ~/.vimrc
-    - etc/vim/.vim: ~/.vim
-    - etc/git/.gitconfig: ~/.gitconfig
-    - etc/bash/.bashrc: ~/.bashrc
-
