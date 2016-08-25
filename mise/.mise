@@ -4,11 +4,9 @@ manage:
   - etc
 create:
   directories:
-    - bin
     - doc
     - etc
     - proj
     - src
-    - .vim/colors
   links:
     - Desktop: tmp
