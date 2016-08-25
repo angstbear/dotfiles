@@ -7,10 +7,8 @@ create:
     - bin
     - doc
     - etc
-    - lib
     - proj
     - src
-    - var/tmp
     - .vim/colors
   links:
-    - var/tmp: tmp
+    - Desktop: tmp
