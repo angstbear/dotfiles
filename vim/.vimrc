@@ -10,7 +10,7 @@ set background=dark
 filetype on
 set noerrorbells
 set visualbell
-set number
+"set number
 set cursorline
 set ruler
 set hlsearch
@@ -77,7 +77,7 @@ augroup perl
     autocmd FileType perl set smartindent
 
     " make lines longer than 120 characters errors (including newline)
-    "autocmd FileType perl match ErrorMsg /\%>119v.\+/
+    autocmd FileType perl match ErrorMsg /\%>119v.\+/
 
     " make tabs and trailing spaces errors
     autocmd FileType perl 2match ErrorMsg /[\t]\|\s\+\%#\@<!$/
@@ -86,5 +86,4 @@ augroup END
 
 " Status line (slightly more informative than default)
 set statusline=%f\ [%{strlen(&fenc)?&fenc:'none'},%{&ff}]\ %h%m%r\ %y%=%c,%l/%L\ %P
-
 
