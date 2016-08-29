@@ -30,10 +30,8 @@ set wildmenu                   " Command-line completion
 
 " Tab spacing
 set tabstop=4
-
-" Tabs
-set expandtab
-
+set shiftwidth=4
+set expandtab " Insert spaces on <TAB> press
 
 " Maps backspace to clear last search highlighting
 " turned off by default incase you like backspace, <BS>
@@ -41,6 +39,8 @@ nmap <silent> <BS> :nohlsearch<CR>
 
 let mapleader=","
 
+" Toggle tabs / spaces with <TAB> press
+nnoremap <leader>t :set invexpandtab<CR>
 " Toggle line numbers
 nnoremap <leader>l :set invnumber<CR>
 " Save a file as root (,W)
