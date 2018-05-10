@@ -37,6 +37,9 @@ set expandtab " Insert spaces on <TAB> press
 " turned off by default incase you like backspace, <BS>
 nmap <silent> <BS> :nohlsearch<CR>
 
+" Make `fd` throw you into normal mode
+inoremap fd <esc>
+
 let mapleader=","
 
 " Toggle tabs / spaces with <TAB> press
