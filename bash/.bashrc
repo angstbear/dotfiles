@@ -38,3 +38,20 @@ alias cp='cp -v'
 
 # After each command, append to the history file and reread it
 #export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+PATH=/Users/kboren/.rvm/gems/ruby-2.4.2/bin:/Users/kboren/.rvm/gems/ruby-2.4.2@global/bin:/Users/kboren/.rvm/rubies/ruby-2.4.2/bin:/Users/kboren/.proofpoint/rbenv/shims:/Users/kboren/.proofpoint/rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/kboren/.rvm/bin:/Users/kboren/Documents/puppet/administration-tools/bin:/Users/kboren/Documents/puppet/administration-tools/bin
+
+eyaml-edit () {
+          cp $1 $1.tmp
+          vim $1.tmp
+          eyaml encrypt --encrypt-method gpg --gpg-always-trust --eyaml $1.tmp > $1
+          rm $1.tmp
+        }
+upsearch () {
+  slashes=${PWD//[^\/]/}
+  directory="$PWD"
+  for (( n=${#slashes}; n>0; --n ))
+  do
+    test -e "$directory/$1" && echo "$directory/$1" && return
+    directory="$directory/.."
+  done
+}
