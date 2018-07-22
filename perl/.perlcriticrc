@@ -1,0 +1,27 @@
+# perlcriticrc - Perl::Critic Profile
+
+# General Settings
+
+# SEVERITY NAME   ...is equivalent to...   SEVERITY NUMBER
+# --------------------------------------------------------
+# -severity => 'gentle'                     -severity => 5
+# -severity => 'stern'                      -severity => 4
+# -severity => 'harsh'                      -severity => 3
+# -severity => 'cruel'                      -severity => 2
+# -severity => 'brutal'                     -severity => 1
+
+severity = 5
+
+# High verbosity
+#verbose = 11
+#verbose = %f: [%p] %m at line %l, column %c.\n%d\n
+
+verbose = [%p] %m at line %l, column %c.\n
+theme = core
+
+# Add policies to a specific severity level
+[TestingAndDebugging::RequireUseWarnings]
+severity = 5
+
+# Ignore policies
+[-Modules::RequireBarewordIncludes]
