@@ -4,7 +4,7 @@ set nocompatible
 " Colors
 syntax enable
 colorscheme solarized
-set background=dark
+set background=light
 
 " General settings
 filetype on
