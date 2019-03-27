@@ -134,8 +134,8 @@ values."
    ;; `recents' `bookmarks' `projects' `agenda' `todos'."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (bookmarks . 2)
+   dotspacemacs-startup-lists '((recents . 10)
+                                (bookmarks . 3)
                                 (todos . 4)
                                 (agenda . 4)
                                 (projects . 5))

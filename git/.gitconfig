@@ -15,4 +15,5 @@
     prune = true
 [credential]
     helper = osxkeychain
-
+[achievement]
+	upload = true

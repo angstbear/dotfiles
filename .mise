@@ -4,6 +4,7 @@ create:
     - mise/.mise: ~/.mise
     - vim/.vimrc: ~/.vimrc
     - vim/.vim: ~/.vim
+    - spacemacs/.spacemacs: ~/.spacemacs
     - git/.gitconfig: ~/.gitconfig
     - bash/.bashrc: ~/.bashrc
 
