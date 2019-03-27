@@ -1,5 +1,5 @@
 [user]
-    name = angstbear
+    name = Kristopher
     email = kris@xophoros.com
 [format]
     pretty = %Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset
