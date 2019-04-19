@@ -23,16 +23,7 @@ alias rm='rm -v'
 alias mv='mv -v'
 alias cp='cp -v'
 
-### search and utility functions
-lc() { wc -l $* }
-
-#manlygrep <directory to start in> '<files to process>' <grep string to match>
-#example: manlygrep ./ '*.c' fuzzy
-manlygrep() {
-    #recursive grep that deals with files with spaces in them and also doesn't bother matching binary files
-    #remember to put single quotes around the file match expression to thwart the dreaded wildcard expansion demon
-    find "$1" -name "$2" -printf "\"%p\"\\n" | xargs grep -I "$3"
-}
+alias git="git-achievements"
 
 ### bash tweaking
 # Avoid duplicates
@@ -42,4 +33,6 @@ manlygrep() {
 
 # After each command, append to the history file and reread it
 #export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+export PATH=/Users/kboren/.rvm/gems/ruby-2.4.2/bin:/Users/kboren/.rvm/gems/ruby-2.4.2@global/bin:/Users/kboren/.rvm/rubies/ruby-2.4.2/bin:/Users/kboren/.proofpoint/rbenv/shims:/Users/kboren/.proofpoint/rbenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/kboren/.rvm/bin:/Users/kboren/Documents/puppet/administration-tools/bin:/Users/kboren/Documents/puppet/administration-tools/bin:/Users/kboren/src/git-achievements
 
