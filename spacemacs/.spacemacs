@@ -41,6 +41,7 @@ values."
      better-defaults
      html
      javascript
+     spacemacs-prettier
      sql
      php
      helm
@@ -67,10 +68,12 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
+     (perltidy :location local)
      solarized-theme
      habitica
+     editorconfig
      elcord
-     (perltidy :location local)
+     minimap
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -355,7 +358,16 @@ you should place your code here."
         cperl-tab-always-indent t)
   (add-to-list 'auto-mode-alist '("\\.pm\\.t?\\'" . cperl-mode))
   (add-hook 'cperl-mode-hook (lambda () (auto-complete-mode)))
-  ;;(load-file "~/.emacs.d/private/local/perltidy.el")
+  (load-file "~/.emacs.d/private/local/perltidy.el")
+
+  ;; javascript
+  (setq-default js2-basic-offset 'tab-width)
+  (setq-default js-indent-level 'tab-width)
+  (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'web-mode-hook 'prettier-js-mode)
+
+  ;; web-mode
+  (add-to-list 'auto-mode-alist '("\\.tmpl\\'" . web-mode))
 
   ;; jabber config stuff
   (let ((emacs-jabber-dir "~/.emacs.d/private/local/jconf/"))
@@ -392,13 +404,17 @@ you should place your code here."
               (define-key jabber-chat-mode-map [(shift return)] 'newline)))
 
   ;; Discord
-  (elcord-mode)
+  ;; (elcord-mode)
 
   ;; Habitica
   (add-to-list 'load-path "~/.emacs.d/private/local/habitica-creds/")
   (require 'habitica-creds)
   (setq habitica-turn-on-highlighting t)
-  (setq habitica-show-streak t))
+  (setq habitica-show-streak t)
+
+  ;; Minimap
+  (setq minimap-update-delay 0)
+  (setq minimap-window-location 'right))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -438,7 +454,7 @@ you should place your code here."
  '(nrepl-message-colors
    '("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4"))
  '(package-selected-packages
-   '(yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic elcord habitica org-journal yaml-mode xterm-color web-mode unfill tagedit sql-indent slim-mode shell-pop scss-mode sass-mode pug-mode mwim multi-term jabber srv fsm insert-shebang helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy fish-mode eshell-z eshell-prompt-extras esh-help emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-shell company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode phpunit phpcbf php-extras php-auto-yasnippets yasnippet drupal-mode php-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit transient git-commit with-editor reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
+   '(editorconfig prettier-js lv minimap yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic elcord habitica org-journal yaml-mode xterm-color web-mode unfill tagedit sql-indent slim-mode shell-pop scss-mode sass-mode pug-mode mwim multi-term jabber srv fsm insert-shebang helm-css-scss helm-company helm-c-yasnippet haml-mode fuzzy fish-mode eshell-z eshell-prompt-extras esh-help emmet-mode company-web web-completion-data company-tern dash-functional company-statistics company-shell company auto-yasnippet ac-ispell auto-complete web-beautify tern livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode phpunit phpcbf php-extras php-auto-yasnippets yasnippet drupal-mode php-mode smeargle orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup htmlize helm-gitignore gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md evil-magit magit transient git-commit with-editor reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#073642" 0.2))
