@@ -3,8 +3,8 @@ set nocompatible
 
 " Colors
 syntax enable
-colorscheme solarized
-set background=light
+"colorscheme solarized
+"set background=dark
 
 " General settings
 filetype on

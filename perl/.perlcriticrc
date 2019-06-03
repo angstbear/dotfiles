@@ -25,3 +25,5 @@ severity = 5
 
 # Ignore policies
 [-Modules::RequireBarewordIncludes]
+[-Subroutines::ProhibitSubroutinePrototypes]
+
