@@ -1,0 +1,24 @@
+"*":
+  core:
+    customFileTypes:
+      "source.perl": [
+        "cgi"
+      ]
+      "text.html.tt": [
+        "tmpl"
+      ]
+    projectHome: "/Users/kboren/dev"
+    telemetryConsent: "no"
+  editor:
+    fontFamily: "Monaco, Menlo, Consolas, DejaVu Sans Mono, monospace"
+    fontSize: 12
+    showInvisibles: true
+    tabLength: 4
+  "exception-reporting":
+    userId: "32c32ca1-c76f-4d55-aee9-73842ec03dd3"
+  "linter-perlcritic":
+    executablePath: "/usr/local/Cellar/perl/5.28.1/bin/perlcritic"
+    showPolicy: true
+  "linter-ui-default":
+    panelHeight: 127
+    showPanel: true

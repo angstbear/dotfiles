@@ -1,0 +1,49 @@
+'.source.gfm':
+  'Hello World':
+    'prefix': 'hewo'
+    'body': 'Hello World!'
+
+  'Github Hello':
+    'prefix': 'gihe'
+    'body': 'Octocat says Hi!'
+
+  'Octocat Image Link':
+    'prefix': 'octopic'
+    'body': '![GitHub Octocat](https://assets-cdn.github.com/images/modules/logos_page/Octocat.png)'
+
+'.source.perl':
+    'Perl Script':
+        'prefix': 'script'
+        'body': """
+            #!/usr/bin/env perl
+
+            use strict;
+            use warnings;
+            use feature qw(:5.10);
+
+            __PACKAGE__->new->run;
+
+            exit;
+
+            sub new { bless {}, shift }
+            sub run { }
+        """
+
+'.source.js':
+    'console.log':
+        'prefix': 'log'
+        'body': 'console.log(${1:"crash"});$2'
+    'Javascript Hello World':
+        'prefix': 'hello'
+        'body': 'Hello World!'
+    'if, else if, else':
+        'prefix': 'ieie'
+        'body': """
+            if (${1:true}) {
+                $2
+            } else if (${3:false}) {
+                $4
+            } else {
+                $5
+            }
+        """
